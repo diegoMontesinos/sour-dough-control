@@ -1,10 +1,18 @@
 import type { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 
-import connectDB from '../lib/connectDB';
-import Culture from '../models/Culture';
+import dbConnect from '../lib/dbConnect';
 
 import Layout from '../components/Layout';
+
+export const getServerSideProps: GetServerSideProps =
+  async () => {
+    await dbConnect();
+
+    console.log(123);
+
+    return { props: { pets: 1 } };
+  };
 
 const Home: NextPage<{ isConnected: boolean }> = ({
   isConnected,
@@ -21,20 +29,5 @@ const Home: NextPage<{ isConnected: boolean }> = ({
     </div>
   </Layout>
 );
-
-/* Retrieves pet(s) data from mongodb database */
-export async function getServerSideProps() {
-  await connectDB();
-
-  // /* find all the data in our database */
-  // const result = await Pet.find({});
-  // const pets = result.map((doc) => {
-  //   const pet = doc.toObject();
-  //   pet._id = pet._id.toString();
-  //   return pet;
-  // });
-
-  return { props: { pets: 1 } };
-}
 
 export default Home;

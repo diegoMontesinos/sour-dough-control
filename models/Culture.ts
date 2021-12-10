@@ -1,4 +1,4 @@
-import mongoose, { Schema, model } from 'mongoose';
+import mongoose from 'mongoose';
 
 // Interface
 export interface Culture {
@@ -9,7 +9,7 @@ export interface Culture {
 }
 
 // Schema
-const CultureSchema = new Schema({
+const CultureSchema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, 'Please provide a name.'],
@@ -23,4 +23,4 @@ const CultureSchema = new Schema({
 });
 
 export default mongoose.models.Culture ||
-  model('Culture', CultureSchema);
+  mongoose.model('Culture', CultureSchema);
